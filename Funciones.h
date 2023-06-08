@@ -92,6 +92,18 @@ vector<string> getDateTime() {
     return dateAndTime;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+string addSpacesToText(string& text) {
+    string result;
+    for (char c : text) {
+        if (c == '_') {
+            result += ' ';
+        } else {
+            result += c;
+        }
+    }
+    return result;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void insertCarData(int id, string driverName, string driverLastname, int driverId, string insuranceNumber, int phoneNumber, string modelName, int year, string motorNumber, string plateNumber)
 {
 	ofstream carDataFile ("CARS_STORAGE.txt", ios::app);
@@ -109,6 +121,11 @@ void insertCarData(int id, string driverName, string driverLastname, int driverI
 void insertCarDataOnRoute(int id, string driverName, string driverLastname, int driverId, string insuranceNumber, int phoneNumber, string modelName, int year, string motorNumber, string plateNumber, string category, string date, string time, string start_place, string destiny, double cost )
 {
 	ofstream onRouteDataFile ("CARS_ON_ROUTE.txt", ios::app);
+	
+	time.erase(remove(time.begin(), time.end(), ' '), time.end());
+    start_place.erase(remove(start_place.begin(), start_place.end(), ' '), start_place.end());
+    destiny.erase(remove(destiny.begin(), destiny.end(), ' '), destiny.end());
+	
 	if(onRouteDataFile.is_open())
 		{
 			onRouteDataFile << id << " " << driverName<< " " << driverLastname << " " << driverId<< " " << insuranceNumber << " " << phoneNumber << " " << modelName << " " << year << " " <<  motorNumber << " " << plateNumber << " " << category << " " << date << " " << time << " " << start_place << " " << destiny << " " << cost << "\n";
@@ -120,12 +137,17 @@ void insertCarDataOnRoute(int id, string driverName, string driverLastname, int 
 		}
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void insertDataTravels(int id, string driverName, string driverLastname, int driverId, string modelName, int year, string category, string date, string start_time, string endtime, string start_place, string destiny_place, double cost)
+void insertDataTravels(int id, string driverName, string driverLastname, int driverId, string modelName, int year, string category, string date, string start_time, string endtime, string start_place, string destiny, double cost)
 {
 	ofstream dataTravelFile ("TRAVEL_DATA.txt", ios::app);
+	
+	start_time = start_time.substr(0, 2) + "" + start_time.substr(2, 2) + "" + start_time.substr(4) + " ";
+    start_place = addSpacesToText(start_place);
+    destiny = addSpacesToText(destiny); 
+    
 	if(dataTravelFile.is_open())
 		{
-			dataTravelFile << id << " " << driverName << " " << driverLastname << " " << driverId<< " " << modelName << " " << year << " " << category << " " << date << " " << start_time << " " << endtime << " " << start_place << " " << destiny_place << " " << cost << "\n";
+			dataTravelFile << id << " " << driverName << " " << driverLastname << " " << driverId<< " " << modelName << " " << year << " " << category << " " << date << " " << start_time << " " << endtime << " " << start_place << " " << destiny << " " << cost << "\n";
 			dataTravelFile.close();
 		}
 		else
@@ -177,6 +199,10 @@ void loadOnRoutedataFromFile(vector<int>& nAtaxis, vector<string>& nAdriversName
 
     while (file >> id >> driverName >> driverLastname >> driverId >> insuranceNumber >> phoneNumber >>
            modelName >> year >> motorNumber >> plate >> category >> date >> start_time >> start_place >> destiny >> cost) {
+        
+		start_time = start_time.substr(0, 2) + "" + start_time.substr(2, 2) + "" + start_time.substr(4);
+        start_place = addSpacesToText(start_place);
+        destiny = addSpacesToText(destiny);   	
            	
         nAtaxis.push_back(id);
         nAdriversName.push_back(driverName);
