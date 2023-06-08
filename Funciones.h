@@ -399,6 +399,48 @@ void printRouteTaxis(vector<int>& nAtaxis, vector<int>& nAyears, vector<int>& nA
     cout << t;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void printTravelData(vector<int>& tr_taxis, vector<string>& tr_driversName, vector<string>& tr_driversLastname,
+                     vector<int>& tr_driversId, vector<string>& tr_modelNames, vector<int>& tr_years, vector<string>& tr_categories, vector<string>& tr_dates, 
+					 vector<string>& tr_start_times, vector<string>& tr_end_times, vector<string>& tr_starting_places, vector<string>& tr_destination_places, vector<double>& tr_costs)
+{
+    TextTable t('-', '|', '+');
+    //t.add(" Order ");
+	t.add(" Taxi ID ");
+	t.add(" Driver Name ");
+	t.add(" Driver Last Name ");
+	t.add(" Driver ID ");
+	t.add(" Model Car ");
+	t.add(" Year ");
+	t.add(" Category ");
+	t.add(" Date "); 
+	t.add(" StartTime ");
+	t.add(" EndTime ");
+	t.add(" Start Place ");
+	t.add(" Destiny ");
+	t.add(" Cost ");
+    t.endOfRow();
+    for (int i = 0; i < tr_taxis.size(); i++)
+    {
+        //t.add(to_string(i+1));
+        t.add(to_string(tr_taxis.at(i)));
+        t.add(tr_driversName.at(i));
+		t.add(tr_driversLastname.at(i));
+		t.add(to_string(tr_driversId.at(i)));
+		t.add(tr_modelNames.at(i));
+		t.add(to_string(tr_years.at(i)));
+		t.add(tr_categories.at(i));
+		t.add(tr_dates.at(i));
+		t.add(tr_start_times.at(i));
+		t.add(tr_end_times.at(i));
+		t.add(tr_starting_places.at(i));
+		t.add(tr_destination_places.at(i));
+		t.add(to_string(tr_costs.at(i)));
+        t.endOfRow();
+    }
+    t.setAlignment(0, TextTable::Alignment::LEFT);
+    cout << t;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void returnCarData(int id, string driverName, string driverLastname, int driverId, string insuranceNumber, int phoneNumber, string modelName, int year, string motorNumber, string plateNumber, string category)
 {
 	ofstream returnDataFile ("CARS_STORAGE.txt", ios::app);

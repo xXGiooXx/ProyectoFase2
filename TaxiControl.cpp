@@ -100,7 +100,8 @@ loadTravelDataFromFile(tr_taxis, tr_driversName, tr_driversLastname, tr_driversI
 		cout<<"\t\t3. Sent Taxi to a Client"<<endl;
 		cout<<"\t\t4. Check for taxis in routes"<<endl;
 		cout<<"\t\t5. Reinsert a taxi to avaialable queue"<<endl;
-		cout<<"\t\t6. Exit program"<<endl<<endl;
+		cout<<"\t\t6. Check Travels Data"<<endl<<endl;
+		cout<<"\t\t7. Exit program"<<endl<<endl;
 		cout<<"Please, input your option: ";
 		cin>>option;
 		switch(option){
@@ -217,7 +218,7 @@ loadTravelDataFromFile(tr_taxis, tr_driversName, tr_driversLastname, tr_driversI
 			case 4:
 				
 				//code logic for on route checks
-				cout<<"\n********************************************************************************* TAXIS ON ROUTE ********************************************************************************** \n";
+				cout<<"\n******************************************************************************* TAXIS ON ROUTE ************************************************************************** \n";
 				printRouteTaxis(nAtaxis, nAyears, nAdriversId, nAphoneNumbers, nAdriversName, nAdriversLastname, 
 					            nAinsuranceNumbers, nAplates, nAmodelNames, nAmotorNumbers, nAcategories, nAdates, nAstart_times);
 					            
@@ -226,7 +227,7 @@ loadTravelDataFromFile(tr_taxis, tr_driversName, tr_driversLastname, tr_driversI
 				
 				//code logic for reinset taxis into avaialable queue
 		
-				cout<<"\n********************************************************************************* TAXIS ON ROUTE ********************************************************************************** \n";
+				cout<<"\n******************************************************************************* TAXIS ON ROUTE ************************************************************************** \n";
 				printRouteTaxis(nAtaxis, nAyears, nAdriversId, nAphoneNumbers, nAdriversName, nAdriversLastname, 
 					            nAinsuranceNumbers, nAplates, nAmodelNames, nAmotorNumbers, nAcategories, nAdates, nAstart_times);		
 										
@@ -244,10 +245,14 @@ loadTravelDataFromFile(tr_taxis, tr_driversName, tr_driversLastname, tr_driversI
 				
 			break;
 			case 6:
+				printTravelData(tr_taxis, tr_driversName, tr_driversLastname, tr_driversId, tr_modelNames, tr_years, tr_categories, 
+								tr_dates, tr_start_times, tr_end_times, tr_starting_places, tr_destination_places, tr_costs);
+			break;
+			case 7:
 				cout<<"Program has ended...";
 				system("pause");
-				system("exit");
-			break;
+				system("exit");				
+			break;	
 			default:
 				cout<<"Non correct option has been chosen."<<endl;
 			break;
