@@ -141,9 +141,9 @@ void insertDataTravels(int id, string driverName, string driverLastname, int dri
 {
 	ofstream dataTravelFile ("TRAVEL_DATA.txt", ios::app);
 	
-	start_time = start_time.substr(0, 2) + "" + start_time.substr(2, 2) + "" + start_time.substr(4) + " ";
-    start_place = addSpacesToText(start_place);
-    destiny = addSpacesToText(destiny); 
+	start_time.erase(remove(start_time.begin(), start_time.end(), ' '), start_time.end());
+    start_place.erase(remove(start_place.begin(), start_place.end(), ' '), start_place.end());
+    destiny.erase(remove(destiny.begin(), destiny.end(), ' '), destiny.end());
     
 	if(dataTravelFile.is_open())
 		{
@@ -200,7 +200,7 @@ void loadOnRoutedataFromFile(vector<int>& nAtaxis, vector<string>& nAdriversName
     while (file >> id >> driverName >> driverLastname >> driverId >> insuranceNumber >> phoneNumber >>
            modelName >> year >> motorNumber >> plate >> category >> date >> start_time >> start_place >> destiny >> cost) {
         
-		start_time = start_time.substr(0, 2) + "" + start_time.substr(2, 2) + "" + start_time.substr(4);
+		start_time = start_time.substr(0, 2) + "" + start_time.substr(2, 2) + "" + start_time.substr(4) + " ";
         start_place = addSpacesToText(start_place);
         destiny = addSpacesToText(destiny);   	
            	
@@ -220,6 +220,43 @@ void loadOnRoutedataFromFile(vector<int>& nAtaxis, vector<string>& nAdriversName
         nAstarting_places.push_back(start_place);
         nAdestination_places.push_back(destiny);
       	nAcosts.push_back(cost);
+    }
+
+    file.close();
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void loadTravelDataFromFile(vector<int>& tr_taxis, vector<string>& tr_driversName, vector<string>& tr_driversLastname,
+                             vector<int>& tr_driversId, vector<string>& tr_modelNames, vector<int>& tr_years, vector<string>& tr_categories, vector<string>& tr_dates, 
+							 vector<string>& tr_start_times, vector<string>& tr_end_times, vector<string>& tr_starting_places, vector<string>& tr_destination_places, vector<double>& tr_costs) {
+                             	
+    ifstream file("TRAVEL_DATA.txt");
+    string driverName, driverLastname, modelName, category, date, start_time, endtime, start_place, destiny;
+    int id, driverId, year;
+	double cost;
+
+    while (file >> id >> driverName >> driverLastname >> driverId >> modelName >> year >> category >> date >> start_time >> endtime >> start_place >> destiny >> cost) {
+    	
+        
+		
+		start_time = start_time.substr(0, 2) + "" + start_time.substr(2, 2) + "" + start_time.substr(4) + " ";
+		endtime = endtime.substr(0, 2) + "" + endtime.substr(2, 2) + "" + endtime.substr(4) + " ";
+        start_place = addSpacesToText(start_place);
+        destiny = addSpacesToText(destiny); 	
+        	
+        tr_taxis.push_back(id);
+        tr_driversName.push_back(driverName);
+        tr_driversLastname.push_back(driverLastname);
+        tr_driversId.push_back(driverId);
+        tr_modelNames.push_back(modelName);
+        tr_years.push_back(year);
+        tr_categories.push_back(category);
+        tr_dates.push_back(date);
+        tr_start_times.push_back(start_time);
+        tr_end_times.push_back(endtime);
+        tr_starting_places.push_back(start_place);
+        tr_destination_places.push_back(destiny);
+        tr_costs.push_back(cost);
+
     }
 
     file.close();
@@ -413,6 +450,7 @@ void returnToStandby(vector<int>& taxis, vector<int>& nAtaxis, vector<int>& nAye
 	        plates.push_back(nAplates[index]);
 	        categories.push_back(nAcategories[index]);
 	        
+	    	endtime.erase(remove(endtime.begin(), endtime.end(), ' '), endtime.end());
 	    	
 	        insertDataTravels(nAtaxis[index], nAdriversName[index], nAdriversLastname[index], nAdriversId[index], nAmodelNames[index], nAyears[index], nAcategories[index], nAdates[index], nAstart_times[index], endtime, nAstarting_places[index], nAdestination_places[index], nAcosts[index]);
 			

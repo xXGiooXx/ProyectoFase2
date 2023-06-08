@@ -67,6 +67,20 @@ int main(){
 	vector<string> nAdestination_places; 
 	vector<double> nAcosts;
 	vector<string> dateAndTime;
+///////////////////////////////////////////TRAVEL DATA//////////////////////////////////////////////////////
+vector<int> tr_taxis; 
+vector<string> tr_driversName;
+vector<string> tr_driversLastname;
+vector<int> tr_driversId;
+vector<string> tr_modelNames;
+vector<int> tr_years; 
+vector<string> tr_categories; 
+vector<string> tr_dates; 
+vector<string> tr_start_times;
+vector<string> tr_end_times; 
+vector<string> tr_starting_places;
+vector<string> tr_destination_places;
+vector<double> tr_costs;
 /////////////////////////////////////////////////////////////////////////////////////////////////
 loadOnRoutedataFromFile(nAtaxis, nAdriversName, nAdriversLastname, nAdriversId, nAinsuranceNumbers, nAphoneNumbers,
                             nAmodelNames, nAyears, nAmotorNumbers, nAplates, nAcategories, nAdates, nAstart_times, nAstarting_places, nAdestination_places, nAcosts);
@@ -74,8 +88,10 @@ loadOnRoutedataFromFile(nAtaxis, nAdriversName, nAdriversLastname, nAdriversId, 
 loadCardataFromFile(taxis, driversName, driversLastname, driversId, insuranceNumbers, phoneNumbers,
                             modelNames, years, motorNumbers, plates, categories);
 
-
+loadTravelDataFromFile(tr_taxis, tr_driversName, tr_driversLastname, tr_driversId, tr_modelNames, tr_years, tr_categories, tr_dates, 
+					   tr_start_times, tr_end_times, tr_starting_places, tr_destination_places, tr_costs);
 ////////////////////////////////////////////////////////////////////////////////////////////////	
+
 	do{
 		system("cls");
 		cout<<"Main menu options:\n\n"<<endl;
