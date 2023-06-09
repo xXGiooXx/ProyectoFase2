@@ -237,12 +237,13 @@ void loadTravelDataFromFile(vector<int>& tr_taxis, vector<string>& tr_driversNam
     while (file >> id >> driverName >> driverLastname >> driverId >> modelName >> year >> category >> date >> start_time >> endtime >> start_place >> destiny >> cost) {
     	
         
-		
+		start_place = addSpacesToText(start_place);
+        destiny = addSpacesToText(destiny); 
 		start_time = start_time.substr(0, 2) + "" + start_time.substr(2, 2) + "" + start_time.substr(4) + " ";
 		endtime = endtime.substr(0, 2) + "" + endtime.substr(2, 2) + "" + endtime.substr(4) + " ";
-        start_place = addSpacesToText(start_place);
-        destiny = addSpacesToText(destiny); 	
         	
+
+        
         tr_taxis.push_back(id);
         tr_driversName.push_back(driverName);
         tr_driversLastname.push_back(driverLastname);
@@ -401,10 +402,9 @@ void printRouteTaxis(vector<int>& nAtaxis, vector<int>& nAyears, vector<int>& nA
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void printTravelData(vector<int>& tr_taxis, vector<string>& tr_driversName, vector<string>& tr_driversLastname,
                      vector<int>& tr_driversId, vector<string>& tr_modelNames, vector<int>& tr_years, vector<string>& tr_categories, vector<string>& tr_dates, 
-					 vector<string>& tr_start_times, vector<string>& tr_end_times, vector<string>& tr_starting_places, vector<string>& tr_destination_places, vector<double>& tr_costs)
+					 vector<string>& tr_start_times, vector<string>& tr_end_times, vector<string>& tr_starting_places, vector<string>& tr_destination_places, vector<double>& tr_costs, int& idtaxi)
 {
-    TextTable t('-', '|', '+');
-    //t.add(" Order ");
+	TextTable t('-', '|', '+');
 	t.add(" Taxi ID ");
 	t.add(" Driver Name ");
 	t.add(" Driver Last Name ");
@@ -418,28 +418,33 @@ void printTravelData(vector<int>& tr_taxis, vector<string>& tr_driversName, vect
 	t.add(" Start Place ");
 	t.add(" Destiny ");
 	t.add(" Cost ");
-    t.endOfRow();
-    for (int i = 0; i < tr_taxis.size(); i++)
-    {
-        //t.add(to_string(i+1));
-        t.add(to_string(tr_taxis.at(i)));
-        t.add(tr_driversName.at(i));
-		t.add(tr_driversLastname.at(i));
-		t.add(to_string(tr_driversId.at(i)));
-		t.add(tr_modelNames.at(i));
-		t.add(to_string(tr_years.at(i)));
-		t.add(tr_categories.at(i));
-		t.add(tr_dates.at(i));
-		t.add(tr_start_times.at(i));
-		t.add(tr_end_times.at(i));
-		t.add(tr_starting_places.at(i));
-		t.add(tr_destination_places.at(i));
-		t.add(to_string(tr_costs.at(i)));
-        t.endOfRow();
-    }
-    t.setAlignment(0, TextTable::Alignment::LEFT);
-    cout << t;
-}
+	t.endOfRow();
+	
+	for(int i = 0; i < tr_taxis.size(); i++){
+		if(tr_taxis[i] == idtaxi || idtaxi == 0){
+			t.add(to_string(tr_taxis[i]));
+			t.add(tr_driversName[i]);
+			t.add(tr_driversLastname[i]);
+			t.add(to_string(tr_driversId[i]));
+			t.add(tr_modelNames[i]);
+			t.add(to_string(tr_years[i]));
+			t.add(tr_categories[i]);
+			t.add(tr_dates[i]);
+			t.add(tr_start_times[i]);
+			t.add(tr_end_times[i]);
+			t.add(tr_starting_places[i]);
+			t.add(tr_destination_places[i]);
+			
+			ostringstream cost_decimals;
+			cost_decimals << fixed << setprecision(2) << tr_costs[i];
+			t.add(cost_decimals.str());
+			t.endOfRow();
+		}
+	}
+	idtaxi = 0;
+	t.setAlignment(0, TextTable::Alignment::LEFT);
+	cout << t;
+}		
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void returnCarData(int id, string driverName, string driverLastname, int driverId, string insuranceNumber, int phoneNumber, string modelName, int year, string motorNumber, string plateNumber, string category)
 {

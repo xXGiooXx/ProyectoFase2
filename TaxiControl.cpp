@@ -5,8 +5,10 @@
 #include<conio.h>
 #include<fstream>
 #include <sstream>
+#include <cctype>
 #include "Textable.h"
 #include "Funciones.h"
+
 
 using namespace std;
 
@@ -19,6 +21,7 @@ int main(){
 	char response='\0';
 	int option;
 	int id;
+	int idtaxi;
 	char confirmation;
 	int idToReinsert; 
 	string starting_place, destination_place, date;
@@ -100,8 +103,9 @@ loadTravelDataFromFile(tr_taxis, tr_driversName, tr_driversLastname, tr_driversI
 		cout<<"\t\t3. Sent Taxi to a Client"<<endl;
 		cout<<"\t\t4. Check for taxis in routes"<<endl;
 		cout<<"\t\t5. Reinsert a taxi to avaialable queue"<<endl;
-		cout<<"\t\t6. Check Travels Data"<<endl<<endl;
-		cout<<"\t\t7. Exit program"<<endl<<endl;
+		cout<<"\t\t6. Check Travels Data"<<endl;
+		cout<<"\t\t7. Check Travels Data For Car"<<endl;
+		cout<<"\t\t8. Exit program"<<endl<<endl;
 		cout<<"Please, input your option: ";
 		cin>>option;
 		switch(option){
@@ -246,12 +250,18 @@ loadTravelDataFromFile(tr_taxis, tr_driversName, tr_driversLastname, tr_driversI
 			break;
 			case 6:
 				printTravelData(tr_taxis, tr_driversName, tr_driversLastname, tr_driversId, tr_modelNames, tr_years, tr_categories, 
-								tr_dates, tr_start_times, tr_end_times, tr_starting_places, tr_destination_places, tr_costs);
+								tr_dates, tr_start_times, tr_end_times, tr_starting_places, tr_destination_places, tr_costs, idtaxi);
 			break;
 			case 7:
+				cout << "\n Enter the taxi id you want to check: ";
+			    cin >> idtaxi;	
+				printTravelData(tr_taxis, tr_driversName, tr_driversLastname, tr_driversId, tr_modelNames, tr_years, tr_categories, 
+								tr_dates, tr_start_times, tr_end_times, tr_starting_places, tr_destination_places, tr_costs, idtaxi);			
+			break;	
+			case 8:
 				cout<<"Program has ended...";
 				system("pause");
-				system("exit");				
+				system("exit");
 			break;	
 			default:
 				cout<<"Non correct option has been chosen."<<endl;
