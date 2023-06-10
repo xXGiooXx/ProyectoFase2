@@ -523,3 +523,139 @@ void returnToStandby(vector<int>& taxis, vector<int>& nAtaxis, vector<int>& nAye
 	        nAcosts.erase(nAcosts.begin() + index);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void printMonthReport(vector<int>& tr_taxis, vector<string>& tr_driversName, vector<string>& tr_driversLastname,
+                vector<int>& tr_driversId, vector<string>& tr_modelNames, vector<int>& tr_years, vector<string>& tr_categories, vector<string>& tr_dates, 
+                vector<string>& tr_start_times, vector<string>& tr_end_times, vector<string>& tr_starting_places, vector<string>& tr_destination_places, vector<double>& tr_costs, string& month){
+    
+	string get_month;            
+    vector<double> totalIncome;
+    bool res = false;
+    double total;
+    
+    TextTable t('-', '|', '+'); 
+    t.add(" Taxi ID ");
+    t.add(" Driver Name ");
+    t.add(" Driver Last Name ");
+    t.add(" Driver ID ");
+    t.add(" Model Car ");
+    t.add(" Year ");
+    t.add(" Category ");
+    t.add(" Date "); 
+    t.add(" StartTime ");
+    t.add(" EndTime ");
+    t.add(" Start Place ");
+    t.add(" Destiny ");
+    t.add(" Cost ");
+    t.endOfRow();
+    
+    for(int i = 0; i < tr_taxis.size(); i++){
+        
+        get_month = tr_dates[i].substr(3, 2);
+        
+        if(get_month == month){
+            
+            t.add(to_string(tr_taxis[i]));
+            t.add(tr_driversName[i]);
+            t.add(tr_driversLastname[i]);
+            t.add(to_string(tr_driversId[i]));
+            t.add(tr_modelNames[i]);
+            t.add(to_string(tr_years[i]));
+            t.add(tr_categories[i]);
+            t.add(tr_dates[i]);
+            t.add(tr_start_times[i]);
+            t.add(tr_end_times[i]);
+            t.add(tr_starting_places[i]);
+            t.add(tr_destination_places[i]);
+            
+            ostringstream cost_decimals;
+            cost_decimals << fixed << setprecision(2) << tr_costs[i];
+            totalIncome.push_back(tr_costs[i]);
+            t.add(cost_decimals.str());
+            t.endOfRow();
+            res = true;
+        }
+    }
+    
+    if(res){
+        month = "";
+        t.setAlignment(0, TextTable::Alignment::LEFT);
+        cout << t;
+        total = accumulate(totalIncome.begin(), totalIncome.end(), 0.0);
+        cout << "\n TOTAL INCOME: $" << fixed << setprecision(2) << total << endl << endl;
+    }
+    else{
+        cout << "\n!! There are no trips made in that month !!" << endl;
+    }
+}			 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+void printTaxiReport(vector<int>& tr_taxis, vector<string>& tr_driversName, vector<string>& tr_driversLastname,
+                vector<int>& tr_driversId, vector<string>& tr_modelNames, vector<int>& tr_years, vector<string>& tr_categories, vector<string>& tr_dates, 
+                vector<string>& tr_start_times, vector<string>& tr_end_times, vector<string>& tr_starting_places, vector<string>& tr_destination_places, vector<double>& tr_costs, string& month, int& idTaxi){
+    
+	string get_month;            
+    vector<double> totalIncome;
+    bool res = false;
+    double total;
+    
+    TextTable t('-', '|', '+'); 
+    t.add(" Taxi ID ");
+    t.add(" Driver Name ");
+    t.add(" Driver Last Name ");
+    t.add(" Driver ID ");
+    t.add(" Model Car ");
+    t.add(" Year ");
+    t.add(" Category ");
+    t.add(" Date "); 
+    t.add(" StartTime ");
+    t.add(" EndTime ");
+    t.add(" Start Place ");
+    t.add(" Destiny ");
+    t.add(" Cost ");
+    t.endOfRow();
+    
+    for(int i = 0; i < tr_taxis.size(); i++){
+        
+        get_month = tr_dates[i].substr(3, 2);
+        
+        if(get_month == month && tr_taxis[i] == idTaxi){
+            
+            t.add(to_string(tr_taxis[i]));
+            t.add(tr_driversName[i]);
+            t.add(tr_driversLastname[i]);
+            t.add(to_string(tr_driversId[i]));
+            t.add(tr_modelNames[i]);
+            t.add(to_string(tr_years[i]));
+            t.add(tr_categories[i]);
+            t.add(tr_dates[i]);
+            t.add(tr_start_times[i]);
+            t.add(tr_end_times[i]);
+            t.add(tr_starting_places[i]);
+            t.add(tr_destination_places[i]);
+            
+            ostringstream cost_decimals;
+            cost_decimals << fixed << setprecision(2) << tr_costs[i];
+            totalIncome.push_back(tr_costs[i]);
+            t.add(cost_decimals.str());
+            t.endOfRow();
+            res = true;
+        }
+    }
+    
+    if(res){
+        month = "";
+        idTaxi = 0;
+        t.setAlignment(0, TextTable::Alignment::LEFT);
+        cout << t;
+        total = accumulate(totalIncome.begin(), totalIncome.end(), 0.0);
+        cout << "\n TOTAL INCOME: $" << fixed << setprecision(2) << total << endl << endl;
+    }
+    else{
+        cout << "\n!! There are no trips made !!" << endl;
+    }
+}			 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				 

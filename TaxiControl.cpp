@@ -21,10 +21,11 @@ int main(){
 	char response='\0';
 	int option;
 	int id;
-	int idtaxi;
+	int idTaxi;
 	char confirmation;
 	int idToReinsert; 
 	string starting_place, destination_place, date;
+	string month;
 	double cost; 
 /////////////////////////////////////DRIVER DATA //////////////////////////////////////////////////	
 	string driverName;
@@ -105,7 +106,9 @@ loadTravelDataFromFile(tr_taxis, tr_driversName, tr_driversLastname, tr_driversI
 		cout<<"\t\t5. Reinsert a taxi to avaialable queue"<<endl;
 		cout<<"\t\t6. Check Travels Data"<<endl;
 		cout<<"\t\t7. Check Travels Data For Car"<<endl;
-		cout<<"\t\t8. Exit program"<<endl<<endl;
+		cout<<"\t\t8. Report for month"<<endl;
+		cout<<"\t\t9. Report for month and Taxi ID"<<endl;
+		cout<<"\t\t10. Exit program"<<endl<<endl;
 		cout<<"Please, input your option: ";
 		cin>>option;
 		switch(option){
@@ -250,15 +253,32 @@ loadTravelDataFromFile(tr_taxis, tr_driversName, tr_driversLastname, tr_driversI
 			break;
 			case 6:
 				printTravelData(tr_taxis, tr_driversName, tr_driversLastname, tr_driversId, tr_modelNames, tr_years, tr_categories, 
-								tr_dates, tr_start_times, tr_end_times, tr_starting_places, tr_destination_places, tr_costs, idtaxi);
+								tr_dates, tr_start_times, tr_end_times, tr_starting_places, tr_destination_places, tr_costs, idTaxi);
 			break;
 			case 7:
 				cout << "\n Enter the taxi id you want to check: ";
-			    cin >> idtaxi;	
+			    cin >> idTaxi;	
 				printTravelData(tr_taxis, tr_driversName, tr_driversLastname, tr_driversId, tr_modelNames, tr_years, tr_categories, 
-								tr_dates, tr_start_times, tr_end_times, tr_starting_places, tr_destination_places, tr_costs, idtaxi);			
+								tr_dates, tr_start_times, tr_end_times, tr_starting_places, tr_destination_places, tr_costs, idTaxi);			
 			break;	
 			case 8:
+				cout << "\n Enter the month to generate the report: ";
+				cin >> month;
+				printMonthReport(tr_taxis, tr_driversName, tr_driversLastname, tr_driversId, tr_modelNames, tr_years, tr_categories, 
+								tr_dates, tr_start_times, tr_end_times, tr_starting_places, tr_destination_places, tr_costs, month);
+				
+			break;
+			case 9:
+				cout << "\n Enter the month to generate the report: ";
+				cin >> month;
+				cout << "\n Enter the taxi id to generate the report: ";
+				cin >> idTaxi;
+				
+				printTaxiReport(tr_taxis, tr_driversName, tr_driversLastname, tr_driversId, tr_modelNames, tr_years, tr_categories, 
+								tr_dates, tr_start_times, tr_end_times, tr_starting_places, tr_destination_places, tr_costs, month, idTaxi);
+				
+			break;	
+			case 10:
 				cout<<"Program has ended...";
 				system("pause");
 				system("exit");
