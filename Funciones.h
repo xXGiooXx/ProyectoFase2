@@ -10,7 +10,7 @@ using namespace std;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 string convert(string& word)
 {
-	transform(word.begin(), word.end(), word.begin(), ::toupper); // Convertir la entrada taxiCategory en mayúscula
+	transform(word.begin(), word.end(), word.begin(), ::toupper); // Convertir la entrada taxiCategory en mayÃºscula
 	return word;
 }
 
@@ -38,12 +38,12 @@ VerificationData verificationTaxi( vector <string> categories, string taxiCatego
 	for (int i = 0; i < categories.size(); i++) 
 	{
 		if (categories[i] == taxiCategory) 
-		{	// buscar el primer taxi disponible con la categoría correspondiente y retornar un true.       
+		{	// buscar el primer taxi disponible con la categorÃ­a correspondiente y retornar un true.       
 			v.exists = true;
 			v.position = i;	
 			break;		
 		}
-		// si no hay taxis disponibles con la categoría requerida retornar un false.
+		// si no hay taxis disponibles con la categorÃ­a requerida retornar un false.
 	}
 	return v;
 }
@@ -70,7 +70,7 @@ vector<string> getDateTime() {
     // Convierte el buffer en una cadena de C++
     string formattedDate(dateBuffer);
 
-    // Almacena la fecha en la posición 0 del vector
+    // Almacena la fecha en la posiciÃ³n 0 del vector
     dateAndTime.push_back(formattedDate);
 
     // Formato de hora
@@ -85,7 +85,7 @@ vector<string> getDateTime() {
     // Convierte el buffer en una cadena de C++
     string formattedTime(timeBuffer);
 
-    // Almacena la hora en la posición 1 del vector
+    // Almacena la hora en la posiciÃ³n 1 del vector
     dateAndTime.push_back(formattedTime);
 
     // Retorna el vector con la fecha y hora
@@ -391,27 +391,7 @@ void printTravelData(vector<int>& tr_taxis, vector<string>& tr_driversName, vect
                      vector<int>& tr_driversId, vector<string>& tr_modelNames, vector<int>& tr_years, vector<string>& tr_categories, vector<string>& tr_dates, 
 					 vector<string>& tr_start_times, vector<string>& tr_end_times, vector<string>& tr_starting_places, vector<string>& tr_destination_places, vector<double>& tr_costs, int& idtaxi)
 {
-	
-	for( int j = 0; j < tr_taxis.size(); j++){
-		
-		tr_taxis.erase(tr_taxis.begin() + j);
-		tr_driversName.erase(tr_driversName.begin() + j);
-		tr_driversLastname.erase(tr_driversLastname.begin() + j);
-		tr_driversId.erase(tr_driversId.begin() + j);
-		tr_modelNames.erase(tr_modelNames.begin() + j);
-		tr_years.erase(tr_years.begin() + j);
-		tr_categories.erase(tr_categories.begin() + j);
-		tr_dates.erase(tr_dates.begin() + j);
-		tr_start_times.erase(tr_start_times.begin() + j);
-		tr_end_times.erase(tr_end_times.begin() + j);
-		tr_starting_places.erase(tr_starting_places.begin() + j);
-		tr_destination_places.erase(tr_destination_places.begin() + j);
-		tr_costs.erase(tr_costs.begin() + j);
-	}
-	
-	loadTravelDataFromFile(tr_taxis, tr_driversName, tr_driversLastname, tr_driversId, tr_modelNames, tr_years, tr_categories, tr_dates, 
-					   tr_start_times, tr_end_times, tr_starting_places, tr_destination_places, tr_costs);
-	
+
 	TextTable t('-', '|', '+');
 	t.add(" Taxi ID ");
 	t.add(" Driver Name ");
